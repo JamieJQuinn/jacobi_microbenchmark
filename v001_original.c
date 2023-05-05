@@ -15,7 +15,7 @@ real* make_array(int nx, int ny) {
   return malloc(nx*ny*sizeof(real));
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   real* p = make_array(NX, NY);
   real* p_new = make_array(NX, NY);
   real* b = make_array(NX, NY);
@@ -64,13 +64,14 @@ int main() {
   }
   av_error /= (NX*NY);
 
-  printf("NX, NY, MAX_ITERATIONS, Runtime, Average Error\n");
-  printf("%d, %d, %d, %d, %e\n", NX, NY, MAX_ITERATIONS, msec, av_error);
+  printf("exe name, NX, NY, MAX_ITERATIONS, Runtime, Average Error\n");
+  printf("%s, %d, %d, %d, %d, %e\n", argv[0], NX, NY, MAX_ITERATIONS, msec, av_error);
 
   free(p);
   free(p_new);
   free(b);
   free(p_soln);
 
+  (void)argc; // Disable compiler warnings for argc
   return 0;
 }
