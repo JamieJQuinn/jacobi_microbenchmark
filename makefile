@@ -13,7 +13,7 @@ run: build
 
 all: run
 
-vary_flags: ${reference_name}.x ${reference_name}_O0.x ${reference_name}_O1.x ${reference_name}_O2.x ${reference_name}_O3.x ${reference_name}_O3_native.x ${reference_name}_Ofast_native.x
+vary_flags: ${reference_name}.x ${reference_name}_O1.x ${reference_name}_O2.x ${reference_name}_O3.x ${reference_name}_O3_native.x ${reference_name}_Ofast_native.x
 
 clean:
 	rm *.x
@@ -23,9 +23,6 @@ debug: all
 
 %.x: %.c
 	gcc ${CFLAGS} ${OFLAGS} $< -o $@ ${LFLAGS}
-
-${reference_name}_O0.x: ${reference_name}.c
-	gcc ${CFLAGS} -O0 $< -o $@ ${LFLAGS}
 
 ${reference_name}_O1.x: ${reference_name}.c
 	gcc ${CFLAGS} -O1 $< -o $@ ${LFLAGS}

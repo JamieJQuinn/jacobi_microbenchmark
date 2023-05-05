@@ -5,17 +5,17 @@
 
 typedef PRECISION real;
 
-#define IDX(i,j) (j) + (i)*NY
-
 const int NX = 128;
 const int NY = 128;
 const int MAX_ITERATIONS = 1<<16;
+
+int idx(int i, int j) {return j + i*NY;}
 
 real* make_array(int nx, int ny) {
   return malloc(nx*ny*sizeof(real));
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   real* p = make_array(NX, NY);
   real* p_new = make_array(NX, NY);
   real* b = make_array(NX, NY);
@@ -34,10 +34,10 @@ int main(int argc, char *argv[]) {
       real x = i*dx;
       real y = j*dx;
 
-      b[IDX(i,j)] = sin(M_PI*x)*sin(M_PI*y);
-      p_soln[IDX(i,j)] = -sin(M_PI*x)*sin(M_PI*y)/(2.0*M_PI*M_PI);
-      p[IDX(i,j)] = 0.0;
-      p_new[IDX(i,j)] = 0.0;
+      b[idx(i,j)] = sin(M_PI*x)*sin(M_PI*y);
+      p_soln[idx(i,j)] = -sin(M_PI*x)*sin(M_PI*y)/(2.0*M_PI*M_PI);
+      p[idx(i,j)] = 0.0;
+      p_new[idx(i,j)] = 0.0;
     }
   }
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
   for(int iter = 0; iter<MAX_ITERATIONS; ++iter) {
     for(int i=1; i<NX-1; ++i) {
       for(int j=1; j<NY-1; ++j) {
-        p_new[IDX(i,j)] = D_x*(p[IDX(i+1,j)] + p[IDX(i-1,j)]) + D_y*(p[IDX(i,j+1)] + p[IDX(i,j-1)]) + B*b[IDX(i,j)];
+        p_new[idx(i,j)] = D_x*(p[idx(i+1,j)] + p[idx(i-1,j)]) + D_y*(p[idx(i,j+1)] + p[idx(i,j-1)]) + B*b[idx(i,j)];
       }
     }
     real* temp = p_new;
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
   real av_error = 0.0;
   for(int i=1; i<NX-1; ++i) {
     for(int j=1; j<NY-1; ++j) {
-      av_error += fabs(p[IDX(i,j)] - p_soln[IDX(i,j)]);
+      av_error += fabs(p[idx(i,j)] - p_soln[idx(i,j)]);
     }
   }
   av_error /= (NX*NY);
