@@ -68,8 +68,7 @@ int main(int argc, char* argv[]) {
   }
   av_error /= (nx*ny);
 
-  printf("exe name, nx, ny, MAX_ITERATIONS, Runtime, Average Error\n");
-  printf("%s, %d, %d, %d, %d, %e\n", argv[0], nx, ny, max_iterations, msec, av_error);
+  printf("%s, c, %d, %d, %d, %d, %e\n", argv[0], nx, ny, max_iterations, msec, av_error);
 
   free(p);
   free(b);

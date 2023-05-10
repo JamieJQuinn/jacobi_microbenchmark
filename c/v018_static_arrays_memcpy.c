@@ -33,7 +33,6 @@ void run_jacobi(real p[NX][NY], const real b[NX][NY]) {
 int main(int argc, char* argv[]) {
   const int nx = NX;
   const int ny = NY;
-  const int max_iterations = MAX_ITERATIONS;
 
   real p[NX][NY];
   real b[NX][NY];
@@ -64,8 +63,7 @@ int main(int argc, char* argv[]) {
   }
   av_error /= (nx*ny);
 
-  printf("exe name, nx, ny, MAX_ITERATIONS, Runtime, Average Error\n");
-  printf("%s, %d, %d, %d, %d, %e\n", argv[0], nx, ny, max_iterations, msec, av_error);
+  printf("%s, c, %d, %d, %d, %d, %e\n", argv[0], NX, NY, MAX_ITERATIONS, msec, av_error);
 
   (void)argc; // Disable compiler warnings for argc
   return 0;
