@@ -1,45 +1,57 @@
-## Microbenchmarks
-
-- C vs C++ vs julia vs Python vs Numba vs Zig vs Cupy vs CUDA vs Fortran
-- Effect of restrict
-- Effect of using methods over functions
-- [x] Effect of packaging data + params in a single structure
-- [x] Effect of hardcoding variables
-- [x] Effect of passing vs global variables for e.g. numerical parameters
-- [x] Effect of const ref vs value for small parameter passing
-- [x] Effect of calculating index for every data point vs using inbuilt 2D arrays
-- [x] Effect of ghost points in index calc
-- [x] Effect of inlining
-- [x] Effect of Dirichlet bcs, von Neumann bcs and periodic bcs
-- [x] Effect of precalculating variables
-- [x] Effect of putting calculations in functions
-- [x] Effect of const ref vs just ref on parameter passing
-- [x] Allocating temp space outside or inside a function
-- [x] Effect of 2D domain shape, e.g. same number of elements, different arrangements. Can is disrupt the cache?
-- [x] Jacobi vs Gauss Seidel (i.e. do we write to new array or rewrite old array)
-- [x] double vs float on CPUs
-- [x] Effect of -ffast-math
-- [x] Effect of -O 0,1,2,3 & fast math
-- [x] Effect of -march=native
-
 ## Test problem
 
-Simple Jacobi solver for the Poisson eqn.
+The algorithm is a (relatively) simple Jacobi solver for the Poisson equation,
 
-Equation $\nabla^2 u = -\sin(\pi x) \sin(\pi y)$ with the boundary set to zero should give solution $u = \sin (\pi x) \sin(\pi y)/(2\pi^2)$.
+$$\nabla^2 u = -\sin(\pi x) \sin(\pi y),$$
 
-Discretising over a rectangular grid with grid spacing $\Delta x$ and $\Delta y$ gives
+over the domain $(x, y) \in [0,1]\times[0,1]$ with $u(x,y) = 0$ on each boundary. This has analytical solution,
 
-$\frac{p_{i-1,j} - 2p_{i,j} + p_{i+1,j}}{\Delta x^2} + \frac{p_{i,j-1} - 2p_{i,j} + p_{i,j+1}}{\Delta y^2} = b_{i,j}$,
-where $b_{i,j} = \sin(\pi x_i) \sin(\pi y_j)$.
+$$u_{analytical}(x,y) = \sin (\pi x) \sin(\pi y)/(2\pi^2).$$
 
-Then, rearranging for $p_{i,j}$ gives our iterative equation:
+Discretising over a regular, rectangular grid with constant grid spacing $\Delta x$ and $\Delta y$ gives
+
+$$\frac{p_{i-1,j} - 2p_{i,j} + p_{i+1,j}}{\Delta x^2} + \frac{p_{i,j-1} - 2p_{i,j} + p_{i,j+1}}{\Delta y^2} = b_{i,j}$$,
+
+where $b_{i,j} = \sin(\pi x_i) \sin(\pi y_j),$ $x_i = i\Delta x$ and similar for $y_i$.
+
+Rearranging for $p_{i,j}$ gives the iterative equation suitable for the Jacobi method:
 
 $p_{i,j} = D_x (p_{i+1,j} + p_{i-1,j}) + D_y (p_{i,j+1} + p_{i,j-1}) + B b_{i,j},$
+
 where $D_x = \frac{\Delta y^2}{D}$, $D_y = \frac{\Delta x^2}{D}$, $B = -\frac{\Delta x^2 \Delta y^2}{D}$ and $D = 2(\Delta x^2 + \Delta y^2)$.
 
-## Method
+## What is the point?
 
-The code should be written initially in C in such a way that it is both reasonably readable and reasonably performant. Various modifications will be made to the code in different versions. Some modifications are one off for that version, some continue into proceeding versions. 
+I want to be able to answer the general questions:
 
-The code will then be translated into different languages and optimised in each.
+- What performance do I give up by using a higher level language than C?
+- How easy is it to optimise modern languages like Python, Julia and Zig?
+- What cost do "zero-cost" abstractions really have in C++?
+
+General questions about scientific programs:
+
+- Should I compile my constants into the code or pass them as data?
+- Is it worth testing using just 32-bit floats?
+- Is it worth experimenting with `-ffast-math`?
+
+Along with questions specific to grid-based codes:
+
+- What effect does using ghost points have on performance?
+- Should I use static or dynamic arrays?
+- Are built-in array structures just as performant as raw c-like arrays?
+
+## Targeted Languages
+
+- [x] C
+- [x] C++
+- [ ] C++ OpenMP
+- [ ] C++ OpenACC
+- [ ] C++ CUDA
+- [x] Python
+- [ ] CUDA Python
+- [ ] DaCe Python
+- [x] Julia
+- [ ] Julia ParallelStencils.jl
+- [ ] Fortran
+- [ ] Zig
+- [ ] WebGPU
