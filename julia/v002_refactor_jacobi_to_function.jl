@@ -51,7 +51,6 @@ function main()
     end
     av_error /= (NX*NY);
 
-    println("exe name, language, NX, NY, MAX_ITERATIONS, Runtime, Average Error")
     println("$PROGRAM_FILE, Julia, $NX, $NY, $MAX_ITERATIONS, $(runtime*1000), $av_error")
 end
 
