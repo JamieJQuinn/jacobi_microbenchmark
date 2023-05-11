@@ -10,13 +10,11 @@ $$u_{analytical}(x,y) = \sin (\pi x) \sin(\pi y)/(2\pi^2).$$
 
 Discretising over a regular, rectangular grid with constant grid spacing $\Delta x$ and $\Delta y$ gives
 
-$$\frac{p_{i-1,j} - 2p_{i,j} + p_{i+1,j}}{\Delta x^2} + \frac{p_{i,j-1} - 2p_{i,j} + p_{i,j+1}}{\Delta y^2} = b_{i,j}$$,
+$$\frac{p_{i-1,j} - 2p_{i,j} + p_{i+1,j}}{\Delta x^2} + \frac{p_{i,j-1} - 2p_{i,j} + p_{i,j+1}}{\Delta y^2} = b_{i,j},$$
 
-where $b_{i,j} = \sin(\pi x_i) \sin(\pi y_j),$ $x_i = i\Delta x$ and similar for $y_i$.
+where $b_{i,j} = \sin(\pi x_i) \sin(\pi y_j),$ $x_i = i\Delta x$ and similar for $y_i$. Rearranging for $p_{i,j}$ gives the iterative equation suitable for the Jacobi method:
 
-Rearranging for $p_{i,j}$ gives the iterative equation suitable for the Jacobi method:
-
-$p_{i,j} = D_x (p_{i+1,j} + p_{i-1,j}) + D_y (p_{i,j+1} + p_{i,j-1}) + B b_{i,j},$
+$$p_{i,j} = D_x (p_{i+1,j} + p_{i-1,j}) + D_y (p_{i,j+1} + p_{i,j-1}) + B b_{i,j},$$
 
 where $D_x = \frac{\Delta y^2}{D}$, $D_y = \frac{\Delta x^2}{D}$, $B = -\frac{\Delta x^2 \Delta y^2}{D}$ and $D = 2(\Delta x^2 + \Delta y^2)$.
 
