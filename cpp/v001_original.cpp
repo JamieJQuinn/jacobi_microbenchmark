@@ -24,7 +24,7 @@ void run_jacobi(real *p, const real* b, const real dx, const real dy) {
   real* p_new = make_array(NX, NY);
   for(int iter = 0; iter<MAX_ITERATIONS; ++iter) {
     for(int i=1; i<NX-1; ++i) {
-      for(int j=1; j<NX-1; ++j) {
+      for(int j=1; j<NY-1; ++j) {
         p_new[idx(i,j)] = D_x*(p[idx(i+1,j)] + p[idx(i-1,j)]) + D_y*(p[idx(i,j+1)] + p[idx(i,j-1)]) + B*b[idx(i,j)];
       }
     }
