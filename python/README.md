@@ -1,4 +1,10 @@
-## Logbook
+# Python Logbook
+
+## Major Takeaways
+
+- Numpy slices are still rather slow (10x C performance)
+- Numba still doesn't help with slices much
+- Using python loops with Numba approaches C performance
 
 ### V001: Original
 

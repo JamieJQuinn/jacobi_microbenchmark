@@ -1,4 +1,11 @@
-## Julia Logbook
+# Julia Logbook
+
+## Major takeaways
+
+- Use appropriate looping indices in multidimensional arrays (first index moves fastest)
+- Factor everything into functions
+- Defining constants as global literals doesn't affect performance
+- Bounds-checking of arrays is *incredibly* slow - turn it off after correctness is checked!
 
 ### V001: Original version
 
@@ -52,7 +59,7 @@ v005_inbounds.jl,                     Julia,  128,  128,  65536,  349.528976,   
 
 ### V006: Enabling SIMD instructions
 
-Doesn't do much:
+Doesn't do much in this benchmark:
 
 ```
 v001_original.jl,                     Julia,  128,  128,  65536,  2705.138939,         1.0305793014655375e-6
