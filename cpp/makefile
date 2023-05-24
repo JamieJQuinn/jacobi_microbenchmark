@@ -4,7 +4,7 @@ COMPILER=g++
 CFLAGS=-Wall -Wextra -DPRECISION=${PRECISION} -fno-exceptions -fno-rtti
 LFLAGS=-lm
 OFLAGS=-O3 -march=native
-reference_name=$(basename ${shell ./ls_latest.sh})
+reference_name:=$(basename ${shell ./ls_latest.sh})
 
 EXES=$(subst .cpp,.x,$(shell ls v*.cpp))
 CSVS=$(subst .cpp,.csv,$(shell ls v*.cpp))
