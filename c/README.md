@@ -1,4 +1,18 @@
-## C Logbook
+# C Logbook
+
+## Major Takeaways
+
+- Use `-O3` and `-march=native`
+- Use floats if possible
+- Total domain size *when reading data* is important, seems like they should be a power of 2 (including ghost points if using)
+- Ghost points do not affect performance
+- The compiler can probably automatically inline
+- Static arrays are a tiny bit faster, but possibly more hassle than it's worth
+- Defining parameters like domain size as constant, global literals impacts performance a surprising amount (~10%)
+- You probably don't need to precompute constants
+- Allocating and deallocating temporary space inside a function is probably fine for functions that run for long enough
+
+## Versions
 
 ### V001: Compiler optimisations
 
