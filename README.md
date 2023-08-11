@@ -12,7 +12,7 @@ Discretising over a regular, rectangular grid with constant grid spacing $\Delta
 
 $$\frac{p_{i-1,j} - 2p_{i,j} + p_{i+1,j}}{\Delta x^2} + \frac{p_{i,j-1} - 2p_{i,j} + p_{i,j+1}}{\Delta y^2} = b_{i,j},$$
 
-where $b_{i,j} = \sin(\pi x_i) \sin(\pi y_j),$ $x_i = i\Delta x$ and similar for $y_i$. Rearranging for $p_{i,j}$ gives the iterative equation suitable for the Jacobi method:
+where $b_{i,j} = \sin(\pi x_i) \sin(\pi y_j),$ $x_i = i\Delta x$ and $y_j = j\Delta y$. Rearranging for $p_{i,j}$ gives the iterative equation suitable for the Jacobi method:
 
 $$p_{i,j} = D_x (p_{i+1,j} + p_{i-1,j}) + D_y (p_{i,j+1} + p_{i,j-1}) + B b_{i,j},$$
 
